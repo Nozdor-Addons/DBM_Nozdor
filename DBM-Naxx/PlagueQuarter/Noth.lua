@@ -21,11 +21,11 @@ local warnBlink			= mod:NewSpellAnnounce(29208, 3)
 
 local specWarnAdds		= mod:NewSpecialWarningAdds(29212, "-Healer", nil, nil, 1, 2)
 
-local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573, nil, nil, 6)
-local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", 46573, nil, nil, 6)
-local timerCurseCD		= mod:NewCDTimer(53.3, 29213, nil, nil, nil, 5, nil, DBM_COMMON_L.CURSE_ICON)
+local timerTeleport		= mod:NewTimer(110, "TimerTeleport", 46573, nil, nil, 6)
+local timerTeleportBack	= mod:NewTimer(90, "TimerTeleportBack", 46573, nil, nil, 6)
+local timerCurseCD		= mod:NewCDTimer(25, 29213, nil, nil, nil, 5, nil, DBM_COMMON_L.CURSE_ICON)
 local timerAddsCD		= mod:NewAddsTimer(30, 29212, nil, "-Healer")
-local timerBlink		= mod:NewNextTimer(25, 29208)
+local timerBlink		= mod:NewNextTimer(30, 29208)
 
 mod.vb.teleCount = 0
 mod.vb.addsCount = 0
@@ -34,21 +34,20 @@ mod.vb.curseCount = 0
 function mod:Balcony()
 	self.vb.teleCount = self.vb.teleCount + 1
 	self.vb.addsCount = 0
-	timerCurseCD:Stop()
-	timerAddsCD:Stop()
 	timerBlink:Stop()
+	timerBlink:Start(96)
 	local timer
 	if self.vb.teleCount == 1 then
 		timer = 70
 		timerAddsCD:Start(5)--Always 5
 	elseif self.vb.teleCount == 2 then
-		timer = 97
+		timer = 70
 		timerAddsCD:Start(5)--Always 5
 	elseif self.vb.teleCount == 3 then
-		timer = 126
+		timer = 70
 		timerAddsCD:Start(5)--Always 5
 	else
-		timer = 55
+		timer = 70
 	end
 	timerTeleportBack:Start(timer)
 	warnTeleportSoon:Schedule(timer - 20)
@@ -76,20 +75,29 @@ function mod:OnCombatStart(delay)
 	self.vb.addsCount = 0
 	self.vb.curseCount = 0
 	timerAddsCD:Start(7-delay)
-	timerCurseCD:Start(9.5-delay)
-	timerTeleport:Start(90.8-delay)
-	warnTeleportSoon:Schedule(70.8-delay)
-	self:ScheduleMethod(90.8-delay, "Balcony")
+	timerCurseCD:Start(15-delay)
+	timerTeleport:Start(110-delay)
+	warnTeleportSoon:Schedule(90.8-delay)
+	timerBlink:Start(26-delay)
+
+	timerTeleport:Schedule(180-delay)
+
+	timerTeleport:Schedule(360-delay)
+
+	self:ScheduleMethod(110-delay, "Balcony")
+	self:ScheduleMethod(290-delay, "Balcony")
+	self:ScheduleMethod(470-delay, "Balcony")
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(29213, 54835) then	-- Curse of the Plaguebringer
 		self.vb.curseCount = self.vb.curseCount + 1
 		warnCurse:Show()
-		if self.vb.teleCount == 2 and self.vb.curseCount == 2 or self.vb.teleCount == 3 and self.vb.curseCount == 1 then
-			timerCurseCD:Start(67)--Niche cases it's 67 and not 53-55
-		elseif self.vb.curseCount < 2 then
+		if self.vb.curseCount ~= 4 then
 			timerCurseCD:Start()
+		else
+			timerCurseCD:Start(105)
+			self.vb.curseCount = 0
 		end
 --	elseif args.spellId == 29212 then--Cripple that's always cast when he teleports away
 

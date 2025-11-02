@@ -4,12 +4,17 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision("20220518110528")
 mod:SetCreatureID(28859)
 
---mod:RegisterCombat("yell", L.YellPull)
+mod:RegisterCombat("yell", L.YellPull)
+mod:DisableIEEUCombatDetection()
+mod:DisableRegenDetection()
+mod:SetDetectCombatInVehicle(true)
 mod:RegisterCombat("combat")
-mod:SetWipeTime(45)
+mod:SetWipeTime(600)
 
 mod:RegisterEvents(
-	"CHAT_MSG_MONSTER_YELL"
+	"CHAT_MSG_MONSTER_YELL",
+    "PLAYER_ENTERING_WORLD",
+    "ZONE_CHANGED_NEW_AREA"
 )
 
 mod:RegisterEventsInCombat(
@@ -216,4 +221,20 @@ function mod:OnSync(event, arg)
 			specWarnP3SurgeOfPowerSoon:Play("findshield")
 		end
 	end
+end
+
+
+local function checkMalygosExit(self)
+    local inInstance, instanceType = IsInInstance()
+    if self:IsInCombat() and (not inInstance or instanceType ~= "raid") then
+        DBM:EndCombat(self, true)
+    end
+end
+
+function mod:PLAYER_ENTERING_WORLD()
+    self:Schedule(1, checkMalygosExit, self)
+end
+
+function mod:ZONE_CHANGED_NEW_AREA()
+    self:Schedule(1, checkMalygosExit, self)
 end

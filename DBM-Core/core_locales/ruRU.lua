@@ -189,7 +189,7 @@ L.BIG_WIGS                  = "BigWigs"
 
 L.UPDATEREMINDER_HEADER = "Ваша версия " ..
 	L.DEADLY_BOSS_MODS ..
-	" устарела.\n Версия %s (r%s) доступна для загрузки здесь: https://github.com/Waini4/DBM_For_Sirus"
+	" устарела.\n Версия %s (r%s) доступна для загрузки здесь: https://github.com/Waini4/DBM_For_Nozdor"
 
 L.UPDATEREMINDER_FOOTER         = "Нажмите " ..
 	(IsMacClient() and "Cmd-C" or "Ctrl-C") .. ", чтобы скопировать ссылку загрузки в буфер обмена."

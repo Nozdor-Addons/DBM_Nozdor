@@ -80,8 +80,8 @@ L.Lowest							= "Наименьший таймер наверху"
 -- Missing phrases. End ..
 
 L.TranslationByPrefix		= "Retail backport by "
-L.TranslationBy				= "Barsoom, Bunny67, Zidras. Fixes for sirus Stekolnyu Waini fxpw"
-L.Website					= "Discord для обсуждения: |cFF73C2FBhttps://discord.gg/addonsforsirus|r"
+L.TranslationBy				= "Barsoom, Bunny67, Zidras. Fixes for Nozdor Альтруист"
+L.Website					= "Discord для обсуждения: |cFF73C2FBhttps://discord.gg/bfcYWgDHt8|r"
 L.WebsiteButton				= "Форумы"
 
 L.OTabBosses				= "Боссы"

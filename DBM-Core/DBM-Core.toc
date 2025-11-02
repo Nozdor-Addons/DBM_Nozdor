@@ -14,10 +14,9 @@
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision, DBM_SavedOptions
 ## LoadOnDemand: 0
 ## DefaultState: enabled
-## Author: Barsoom, Bunny67, Zidras, DBM-Frostmourne contributors, original DBM team, fixes for sirus Stekolnyu, Waini, fxpw
-## Version: 9.2.122
-## X-Website: https://github.com/Waini4/DBM_For_Sirus
-## X-Sirus-Update: https://github.com/Waini4/DBM_For_Sirus/tree/main/DBM-Core
+## Author: Barsoom, Bunny67, Zidras, DBM-Frostmourne contributors, original DBM team, fixes for Nozdor Альтруист
+## Version: 9.2.123
+## X-Website: https://discord.gg/bfcYWgDHt8
 
 # Pre-pre-core loads
 AddFunctions.lua
